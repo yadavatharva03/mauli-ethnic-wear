@@ -7,8 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <style>
 :root{
 --primary:#8B0000;
@@ -195,57 +193,38 @@ document.getElementById("discount").innerText=discount;
 document.getElementById("final").innerText=final;
 }
 
-function payNow(){
+function orderOnWhatsApp(){
 
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let address=document.getElementById("address").value;
 
 if(!name||!phone||!address){
-alert("Fill details first");
+alert("Fill all details");
 return;
 }
 
-let totalAmount=parseInt(document.getElementById("final").innerText);
-
-if(totalAmount<=0){
+if(cart.length===0){
 alert("Cart is empty");
 return;
 }
 
-var options={
-"key":"YOUR_KEY_HERE",
-"amount":totalAmount*100,
-"currency":"INR",
-"name":"Mauli Ethnic Wear",
-"description":"Order Payment",
-
-"handler":function(response){
-alert("Payment Successful ✅");
-
-let msg="🛍️ Paid Order\nPayment ID: "+response.razorpay_payment_id+"\n\n";
+let msg="🛍️ *New Order - Mauli Ethnic Wear*\\n------------------------\\n";
 
 cart.forEach(i=>{
-msg+=`${i.name} x${i.qty} = ₹${i.price*i.qty}\n`;
+msg+=`${i.name} x${i.qty} = ₹${i.price*i.qty}\\n`;
 });
 
-msg+=`\nFinal Paid: ₹${totalAmount}`;
+msg+=`\\nTotal: ₹${document.getElementById("total").innerText}`;
+msg+=`\\nDiscount: ₹${document.getElementById("discount").innerText}`;
+msg+=`\\nFinal Amount: ₹${document.getElementById("final").innerText}`;
+
+msg+=`\\n\\n👤 Customer Details`;
+msg+=`\\nName: ${name}`;
+msg+=`\\nPhone: ${phone}`;
+msg+=`\\nAddress: ${address}`;
 
 window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
-},
-
-"prefill":{
-"name":name,
-"contact":phone
-},
-
-"theme":{
-"color":"#8B0000"
-}
-};
-
-var rzp=new Razorpay(options);
-rzp.open();
 }
 </script>
 
@@ -306,7 +285,7 @@ Luxury Collection
 <input id="phone" placeholder="Phone">
 <textarea id="address" placeholder="Address"></textarea>
 
-<button class="btn" onclick="payNow()">Pay Now</button>
+<button class="btn" onclick="orderOnWhatsApp()">Order on WhatsApp</button>
 </div>
 
 </body>
