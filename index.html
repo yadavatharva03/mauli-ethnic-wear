@@ -5,125 +5,115 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mauli Ethnic Wear</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --primary-color: #8B0000;
-    --accent-color: #D4AF37;
-    --bg-color: #fbfbfb;
-    --text-color: #333;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background: var(--bg-color);
-}
+body { font-family: Poppins; margin:0; background:#f5f5f5; }
 
 header {
-    background: linear-gradient(135deg, var(--primary-color), #5a0000);
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-h2.section-title {
-    text-align: center;
-    margin-top: 40px;
-    color: var(--primary-color);
-    font-family: 'Playfair Display';
+    background:#8B0000; color:white; text-align:center; padding:20px;
 }
 
 .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    padding: 20px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap:20px; padding:20px;
 }
 
 .card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    position: relative;
+    background:white; padding:10px; border-radius:10px;
 }
 
-.card img {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-}
-
-.card-content {
-    padding: 15px;
-    text-align: center;
-}
-
-.price {
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-/* Offer badge */
-.badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: gold;
-    color: black;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 5px;
-}
+.card img { width:100%; height:250px; object-fit:cover; }
 
 button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    margin-top: 5px;
-    border-radius: 6px;
-    cursor: pointer;
+    width:100%; padding:10px; margin-top:5px;
+    border:none; border-radius:5px; cursor:pointer;
 }
 
-.btn-whatsapp { background: #25D366; color: white; }
-.btn-upi { background: var(--accent-color); }
+.add-cart { background:#25D366; color:white; }
+
+.cart {
+    position:fixed;
+    right:0; top:0;
+    width:300px; height:100%;
+    background:white;
+    box-shadow:-5px 0 10px rgba(0,0,0,0.2);
+    padding:15px;
+    overflow-y:auto;
+}
+
+.cart h3 { margin-top:0; }
 
 </style>
 
 <script>
-const SHOP_WHATSAPP = "919220102074"; 
-const UPI_ID = "yadavatharva03@oksbi"; 
-const SHOP_NAME = "Mauli Ethnic Wear";
+let cart = [];
 
-function validateForm() {
-    let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let size = document.getElementById("size").value;
-    let address = document.getElementById("address").value;
-
-    if (!name || !phone || !size || !address) {
-        alert("Fill all details first!");
-        return null;
+function addToCart(name, price){
+    let item = cart.find(p => p.name === name);
+    if(item){
+        item.qty++;
+    } else {
+        cart.push({name, price, qty:1});
     }
-    return { name, phone, size, address };
+    updateCart();
 }
 
-function orderOnWhatsApp(product, price) {
-    const user = validateForm();
-    if (!user) return;
+function updateCart(){
+    let cartHTML = "";
+    let total = 0;
+    let totalQty = 0;
 
-    let msg = `🛍️ Order - ${SHOP_NAME}
-Product: ${product}
-Price: ₹${price}
-Size: ${user.size}
+    cart.forEach(item=>{
+        let itemTotal = item.price * item.qty;
+        total += itemTotal;
+        totalQty += item.qty;
 
-Name: ${user.name}
-Phone: ${user.phone}
-Address: ${user.address}`;
+        cartHTML += `
+        <p>${item.name} x${item.qty} = ₹${itemTotal}</p>
+        `;
+    });
 
-    window.open("https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(msg));
+    // BUY 3 GET 1 FREE
+    let freeItems = Math.floor(totalQty / 4);
+    let discount = 0;
+
+    if(freeItems > 0){
+        let cheapest = Math.min(...cart.map(i => i.price));
+        discount = freeItems * cheapest;
+    }
+
+    let finalTotal = total - discount;
+
+    document.getElementById("cart-items").innerHTML = cartHTML;
+    document.getElementById("total").innerText = total;
+    document.getElementById("discount").innerText = discount;
+    document.getElementById("final").innerText = finalTotal;
+}
+
+function placeOrder(){
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    if(!name || !phone || !address){
+        alert("Fill details");
+        return;
+    }
+
+    let order = "🛍️ Order Details:\n";
+    cart.forEach(i=>{
+        order += `${i.name} x${i.qty} = ₹${i.price*i.qty}\n`;
+    });
+
+    order += `\nTotal: ₹${document.getElementById("total").innerText}`;
+    order += `\nDiscount: ₹${document.getElementById("discount").innerText}`;
+    order += `\nFinal: ₹${document.getElementById("final").innerText}`;
+
+    order += `\n\nName: ${name}\nPhone: ${phone}\nAddress: ${address}`;
+
+    window.open("https://wa.me/919220102074?text=" + encodeURIComponent(order));
 }
 </script>
 
@@ -133,105 +123,58 @@ Address: ${user.address}`;
 
 <header>
 <h1>Mauli Ethnic Wear</h1>
-<p>Starting ₹299 | Trendy Collections</p>
+<p>Cart System Enabled 🛒</p>
 </header>
 
-<div style="padding:20px; max-width:500px; margin:auto;">
-<input type="text" id="name" placeholder="Name">
-<input type="tel" id="phone" placeholder="Phone">
-<select id="size">
-<option value="">Select Size</option>
-<option>S</option><option>M</option><option>L</option><option>XL</option>
-</select>
+<div style="padding:20px;">
+<input id="name" placeholder="Name"><br><br>
+<input id="phone" placeholder="Phone"><br><br>
 <textarea id="address" placeholder="Address"></textarea>
 </div>
 
-<!-- SHORT KURTIS -->
-<h2 class="section-title">Short Kurtis (Starting ₹299)</h2>
 <div class="products">
 
 <div class="card">
-<div class="badge">Buy 3 Get 1</div>
 <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800">
-<div class="card-content">
-<h3>Casual Short Kurti</h3>
-<p class="price">₹299</p>
-<button class="btn-whatsapp" onclick="orderOnWhatsApp('Short Kurti',299)">Order</button>
-</div>
+<h3>Short Kurti</h3>
+<p>₹299</p>
+<button class="add-cart" onclick="addToCart('Short Kurti',299)">Add to Cart</button>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800">
-<div class="card-content">
-<h3>Printed Kurti</h3>
-<p class="price">₹399</p>
-<button class="btn-whatsapp" onclick="orderOnWhatsApp('Printed Kurti',399)">Order</button>
-</div>
-</div>
-
-</div>
-
-<!-- LONG KURTIS -->
-<h2 class="section-title">Long Kurtis</h2>
-<div class="products">
-
-<div class="card">
-<div class="badge">Offer</div>
-<img src="https://images.unsplash.com/photo-1617251137884-f135eccf6942?w=800">
-<div class="card-content">
-<h3>Elegant Long Kurti</h3>
-<p class="price">₹599</p>
-<button class="btn-whatsapp" onclick="orderOnWhatsApp('Long Kurti',599)">Order</button>
-</div>
-</div>
-
-</div>
-
-<!-- DRESSES -->
-<h2 class="section-title">Dresses</h2>
-<div class="products">
-
-<div class="card">
-<div class="badge">Buy 3 Get 1</div>
 <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800">
-<div class="card-content">
-<h3>Floral Dress</h3>
-<p class="price">₹699</p>
-<button class="btn-whatsapp" onclick="orderOnWhatsApp('Dress',699)">Order</button>
+<h3>Dress</h3>
+<p>₹699</p>
+<button class="add-cart" onclick="addToCart('Dress',699)">Add to Cart</button>
 </div>
-</div>
-
-</div>
-
-<!-- JEANS -->
-<h2 class="section-title">Jeans</h2>
-<div class="products">
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800">
-<div class="card-content">
-<h3>Blue Denim Jeans</h3>
-<p class="price">₹799</p>
-<button class="btn-whatsapp" onclick="orderOnWhatsApp('Jeans',799)">Order</button>
+<h3>Jeans</h3>
+<p>₹799</p>
+<button class="add-cart" onclick="addToCart('Jeans',799)">Add to Cart</button>
 </div>
-</div>
-
-</div>
-
-<!-- TOPS -->
-<h2 class="section-title">Tops</h2>
-<div class="products">
 
 <div class="card">
-<div class="badge">Hot Deal</div>
 <img src="https://images.unsplash.com/photo-1520975922284-9c8b7b0f2d16?w=800">
-<div class="card-content">
-<h3>Stylish Top</h3>
-<p class="price">₹349</p>
-<button class="btn-whatsapp" onclick="orderOnWhatsApp('Top',349)">Order</button>
-</div>
+<h3>Top</h3>
+<p>₹349</p>
+<button class="add-cart" onclick="addToCart('Top',349)">Add to Cart</button>
 </div>
 
+</div>
+
+<!-- CART -->
+<div class="cart">
+<h3>Your Cart</h3>
+<div id="cart-items"></div>
+
+<hr>
+<p>Total: ₹<span id="total">0</span></p>
+<p>Discount: ₹<span id="discount">0</span></p>
+<h4>Final: ₹<span id="final">0</span></h4>
+
+<button onclick="placeOrder()" style="background:#25D366;color:white;">Order on WhatsApp</button>
 </div>
 
 </body>
