@@ -1,331 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mauli Ethnic Wear</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mauli Ethnic Wear</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #8B0000; /* Deep Maroon */
-            --accent-color: #D4AF37; /* Royal Gold */
-            --bg-color: #fbfbfb;
-            --text-color: #333;
-        }
+<style>
+:root {
+    --primary-color: #8B0000;
+    --accent-color: #D4AF37;
+    --bg-color: #fbfbfb;
+    --text-color: #333;
+}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: var(--bg-color);
-            color: var(--text-color);
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: var(--bg-color);
+}
 
-        header {
-            background: linear-gradient(135deg, var(--primary-color), #5a0000);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+header {
+    background: linear-gradient(135deg, var(--primary-color), #5a0000);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
 
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
-        }
+h2.section-title {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--primary-color);
+    font-family: 'Playfair Display';
+}
 
-        header p {
-            font-weight: 300;
-            color: #ffdcb5;
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    position: relative;
+}
 
-        /* Form Styling */
-        .form-section {
-            background: white;
-            max-width: 600px;
-            margin: -30px auto 40px auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            position: relative;
-        }
+.card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
 
-        .form-section h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-color);
-            text-align: center;
-            margin-top: 0;
-        }
+.card-content {
+    padding: 15px;
+    text-align: center;
+}
 
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-family: 'Poppins', sans-serif;
-            box-sizing: border-box;
-            transition: border 0.3s;
-        }
+.price {
+    font-weight: bold;
+    margin: 10px 0;
+}
 
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--accent-color);
-            outline: none;
-        }
+/* Offer badge */
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: gold;
+    color: black;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
 
-        /* Products Grid */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 20px 0;
-        }
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    margin-top: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-        .card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+.btn-whatsapp { background: #25D366; color: white; }
+.btn-upi { background: var(--accent-color); }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
+</style>
 
-        .card img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-        }
+<script>
+const SHOP_WHATSAPP = "919220102074"; 
+const UPI_ID = "yadavatharva03@oksbi"; 
+const SHOP_NAME = "Mauli Ethnic Wear";
 
-        .card-content {
-            padding: 20px;
-            text-align: center;
-            flex-grow: 1;
-        }
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let size = document.getElementById("size").value;
+    let address = document.getElementById("address").value;
 
-        .card h3 {
-            font-family: 'Playfair Display', serif;
-            margin: 0 0 10px 0;
-            color: var(--primary-color);
-        }
+    if (!name || !phone || !size || !address) {
+        alert("Fill all details first!");
+        return null;
+    }
+    return { name, phone, size, address };
+}
 
-        .card p.price {
-            font-size: 1.2em;
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 20px;
-        }
+function orderOnWhatsApp(product, price) {
+    const user = validateForm();
+    if (!user) return;
 
-        /* Buttons */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    let msg = `🛍️ Order - ${SHOP_NAME}
+Product: ${product}
+Price: ₹${price}
+Size: ${user.size}
 
-        button {
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            transition: background 0.3s, transform 0.1s;
-            width: 100%;
-        }
+Name: ${user.name}
+Phone: ${user.phone}
+Address: ${user.address}`;
 
-        button:active {
-            transform: scale(0.98);
-        }
+    window.open("https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(msg));
+}
+</script>
 
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-        }
-
-        .btn-whatsapp:hover {
-            background: #1ebe5d;
-        }
-
-        .btn-upi {
-            background: var(--accent-color);
-            color: #000;
-        }
-
-        .btn-upi:hover {
-            background: #bfa02b;
-        }
-
-        /* Floating WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
-            color: white;
-            font-size: 28px;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-    </style>
-
-    <script>
-        // Store your exact WhatsApp Number and UPI ID here
-        const SHOP_WHATSAPP = "919220102074"; 
-        const UPI_ID = "yadavatharva03@oksbi"; // <--- CHANGE THIS TO YOUR ACTUAL UPI ID
-        const SHOP_NAME = "Mauli Ethnic Wear";
-
-        function validateForm() {
-            let name = document.getElementById("name").value.trim();
-            let phone = document.getElementById("phone").value.trim();
-            let size = document.getElementById("size").value;
-            let address = document.getElementById("address").value.trim();
-
-            if (!name || !phone || !size || !address) {
-                alert("Please fill in your Name, Phone, Size, and Address before ordering.");
-                return null;
-            }
-
-            return { name, phone, size, address };
-        }
-
-        function orderOnWhatsApp(product, price) {
-            const userDetails = validateForm();
-            if (!userDetails) return;
-
-            let message = 
-`🛍️ *New Order - ${SHOP_NAME}*
---------------------------------
-👗 Product: ${product}
-💰 Price: ₹${price}
-📏 Size: ${userDetails.size}
-
-👤 *Customer Details:*
-Name: ${userDetails.name}
-Phone: ${userDetails.phone}
-Address: ${userDetails.address}`;
-
-            let url = "https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(message);
-            window.open(url, "_blank");
-        }
-
-        function payViaUPI(product, price) {
-            const userDetails = validateForm();
-            if (!userDetails) return;
-
-            // Generate UPI Deep Link (Works on mobile devices with GPay, PhonePe, Paytm, etc.)
-            let upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(SHOP_NAME)}&am=${price}&cu=INR&tn=${encodeURIComponent("Payment for " + product)}`;
-            
-            // Attempt to open the UPI app
-            window.location.href = upiLink;
-
-            // Optional: Prompt user to send screenshot on WhatsApp after clicking pay
-            setTimeout(() => {
-                if(confirm("After completing your payment, please click OK to send us a screenshot on WhatsApp to confirm your order.")) {
-                    let message = `Hello ${SHOP_NAME}, I just paid ₹${price} via UPI for the ${product} (Size: ${userDetails.size}). My name is ${userDetails.name}. Here is my payment screenshot:`;
-                    let waUrl = "https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(message);
-                    window.open(waUrl, "_blank");
-                }
-            }, 2000);
-        }
-    </script>
 </head>
+
 <body>
 
 <header>
-    <h1>Mauli Ethnic Wear</h1>
-    <p>Traditional. Elegant. Authentic.</p>
+<h1>Mauli Ethnic Wear</h1>
+<p>Starting ₹299 | Trendy Collections</p>
 </header>
 
-<div class="container">
-    <div class="form-section">
-        <h2>Delivery Details</h2>
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="tel" id="phone" placeholder="Phone Number (e.g., +91...)" required>
-        
-        <select id="size" required>
-            <option value="">Select Your Size</option>
-            <option value="XS">XS (Extra Small)</option>
-            <option value="S">S (Small)</option>
-            <option value="M">M (Medium)</option>
-            <option value="L">L (Large)</option>
-            <option value="XL">XL (Extra Large)</option>
-            <option value="XXL">XXL (Double XL)</option>
-        </select>
-
-        <textarea id="address" rows="3" placeholder="Full Delivery Address" required></textarea>
-    </div>
-
-    <div class="products">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1617251137884-f135eccf6942?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Khadi Cotton Kurti Set">
-            <div class="card-content">
-                <h3>Khadi Cotton Kurti Set</h3>
-                <p class="price">₹1,299</p>
-                <div class="btn-group">
-                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Khadi Cotton Kurti Set', '1299')">Order on WhatsApp</button>
-                    <button class="btn-upi" onclick="payViaUPI('Khadi Cotton Kurti Set', '1299')">Pay Now via UPI</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Floral Print Anarkali">
-            <div class="card-content">
-                <h3>Floral Print Anarkali</h3>
-                <p class="price">₹2,499</p>
-                <div class="btn-group">
-                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Floral Print Anarkali', '2499')">Order on WhatsApp</button>
-                    <button class="btn-upi" onclick="payViaUPI('Floral Print Anarkali', '2499')">Pay Now via UPI</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Traditional Silk Saree">
-            <div class="card-content">
-                <h3>Traditional Silk Saree</h3>
-                <p class="price">₹3,199</p>
-                <div class="btn-group">
-                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Traditional Silk Saree', '3199')">Order on WhatsApp</button>
-                    <button class="btn-upi" onclick="payViaUPI('Traditional Silk Saree', '3199')">Pay Now via UPI</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div style="padding:20px; max-width:500px; margin:auto;">
+<input type="text" id="name" placeholder="Name">
+<input type="tel" id="phone" placeholder="Phone">
+<select id="size">
+<option value="">Select Size</option>
+<option>S</option><option>M</option><option>L</option><option>XL</option>
+</select>
+<textarea id="address" placeholder="Address"></textarea>
 </div>
 
-<a href="https://wa.me/919220102074" target="_blank" class="whatsapp-float">
-    💬
-</a>
+<!-- SHORT KURTIS -->
+<h2 class="section-title">Short Kurtis (Starting ₹299)</h2>
+<div class="products">
+
+<div class="card">
+<div class="badge">Buy 3 Get 1</div>
+<img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800">
+<div class="card-content">
+<h3>Casual Short Kurti</h3>
+<p class="price">₹299</p>
+<button class="btn-whatsapp" onclick="orderOnWhatsApp('Short Kurti',299)">Order</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800">
+<div class="card-content">
+<h3>Printed Kurti</h3>
+<p class="price">₹399</p>
+<button class="btn-whatsapp" onclick="orderOnWhatsApp('Printed Kurti',399)">Order</button>
+</div>
+</div>
+
+</div>
+
+<!-- LONG KURTIS -->
+<h2 class="section-title">Long Kurtis</h2>
+<div class="products">
+
+<div class="card">
+<div class="badge">Offer</div>
+<img src="https://images.unsplash.com/photo-1617251137884-f135eccf6942?w=800">
+<div class="card-content">
+<h3>Elegant Long Kurti</h3>
+<p class="price">₹599</p>
+<button class="btn-whatsapp" onclick="orderOnWhatsApp('Long Kurti',599)">Order</button>
+</div>
+</div>
+
+</div>
+
+<!-- DRESSES -->
+<h2 class="section-title">Dresses</h2>
+<div class="products">
+
+<div class="card">
+<div class="badge">Buy 3 Get 1</div>
+<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800">
+<div class="card-content">
+<h3>Floral Dress</h3>
+<p class="price">₹699</p>
+<button class="btn-whatsapp" onclick="orderOnWhatsApp('Dress',699)">Order</button>
+</div>
+</div>
+
+</div>
+
+<!-- JEANS -->
+<h2 class="section-title">Jeans</h2>
+<div class="products">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800">
+<div class="card-content">
+<h3>Blue Denim Jeans</h3>
+<p class="price">₹799</p>
+<button class="btn-whatsapp" onclick="orderOnWhatsApp('Jeans',799)">Order</button>
+</div>
+</div>
+
+</div>
+
+<!-- TOPS -->
+<h2 class="section-title">Tops</h2>
+<div class="products">
+
+<div class="card">
+<div class="badge">Hot Deal</div>
+<img src="https://images.unsplash.com/photo-1520975922284-9c8b7b0f2d16?w=800">
+<div class="card-content">
+<h3>Stylish Top</h3>
+<p class="price">₹349</p>
+<button class="btn-whatsapp" onclick="orderOnWhatsApp('Top',349)">Order</button>
+</div>
+</div>
+
+</div>
 
 </body>
 </html>
