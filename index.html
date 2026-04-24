@@ -7,7 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-<!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <style>
@@ -116,6 +115,20 @@ overflow:auto;
 
 .cart.active{ right:0; }
 
+.cart-item{
+border-bottom:1px solid #ddd;
+padding:10px 0;
+}
+
+.qty-btn{
+background:#eee;
+border:none;
+padding:5px 10px;
+margin:3px;
+border-radius:5px;
+cursor:pointer;
+}
+
 input,textarea{
 width:100%;
 padding:10px;
@@ -139,15 +152,37 @@ else{cart.push({name,price,qty:1});}
 updateCart();
 }
 
+function changeQty(index,change){
+cart[index].qty+=change;
+if(cart[index].qty<=0){cart.splice(index,1);}
+updateCart();
+}
+
+function removeItem(index){
+cart.splice(index,1);
+updateCart();
+}
+
 function updateCart(){
 let html="";
 let total=0;
 let qty=0;
 
-cart.forEach(i=>{
-total+=i.price*i.qty;
-qty+=i.qty;
-html+=`<p>${i.name} x${i.qty} = ₹${i.price*i.qty}</p>`;
+cart.forEach((item,index)=>{
+let itemTotal=item.price*item.qty;
+total+=itemTotal;
+qty+=item.qty;
+
+html+=`
+<div class="cart-item">
+<b>${item.name}</b>
+<p>₹${item.price} x ${item.qty} = ₹${itemTotal}</p>
+
+<button class="qty-btn" onclick="changeQty(${index},-1)">➖</button>
+<button class="qty-btn" onclick="changeQty(${index},1)">➕</button>
+<button class="qty-btn" onclick="removeItem(${index})">❌</button>
+</div>
+`;
 });
 
 let free=Math.floor(qty/4);
@@ -179,7 +214,7 @@ return;
 }
 
 var options={
-"key":"YOUR_KEY_HERE", 
+"key":"YOUR_KEY_HERE",
 "amount":totalAmount*100,
 "currency":"INR",
 "name":"Mauli Ethnic Wear",
