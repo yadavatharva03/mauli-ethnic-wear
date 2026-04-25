@@ -10,7 +10,6 @@
 <style>
 :root{
 --primary:#8B0000;
---gold:#D4AF37;
 --bg:#fafafa;
 }
 
@@ -20,10 +19,9 @@ font-family:Poppins;
 background:var(--bg);
 }
 
-/* HEADER */
 header{
 background:white;
-padding:20px 40px;
+padding:20px;
 display:flex;
 justify-content:space-between;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
@@ -31,7 +29,6 @@ box-shadow:0 2px 10px rgba(0,0,0,0.05);
 
 .logo{
 font-family:'Playfair Display';
-font-size:24px;
 color:var(--primary);
 }
 
@@ -43,30 +40,25 @@ border-radius:25px;
 cursor:pointer;
 }
 
-/* HERO */
 .hero{
-height:60vh;
+height:50vh;
 background:url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600') center/cover;
 display:flex;
 align-items:center;
 justify-content:center;
 color:white;
-font-size:40px;
+font-size:35px;
 }
 
-/* FILTER BUTTONS */
-.filters{
-text-align:center;
-padding:20px;
-}
+.filters{text-align:center;padding:15px;}
 
 .filter-btn{
-padding:10px 20px;
+padding:8px 15px;
 margin:5px;
 border:none;
 border-radius:20px;
-cursor:pointer;
 background:#eee;
+cursor:pointer;
 }
 
 .filter-btn.active{
@@ -74,35 +66,29 @@ background:var(--primary);
 color:white;
 }
 
-/* PRODUCTS */
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-padding:40px;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:20px;
 }
 
 .card{
 background:white;
-border-radius:15px;
+border-radius:12px;
 overflow:hidden;
-box-shadow:0 5px 20px rgba(0,0,0,0.05);
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
 .card img{
 width:100%;
-height:300px;
+height:280px;
 object-fit:cover;
 }
 
 .card-content{
-padding:15px;
+padding:10px;
 text-align:center;
-}
-
-.price{
-color:var(--primary);
-font-weight:bold;
 }
 
 .btn{
@@ -110,10 +96,9 @@ background:var(--primary);
 color:white;
 border:none;
 padding:10px;
-margin-top:10px;
-border-radius:8px;
-cursor:pointer;
 width:100%;
+border-radius:6px;
+cursor:pointer;
 }
 
 /* CART */
@@ -124,33 +109,42 @@ top:0;
 width:320px;
 height:100%;
 background:white;
-box-shadow:-5px 0 20px rgba(0,0,0,0.2);
-padding:20px;
-transition:0.4s;
+padding:15px;
+transition:0.3s;
 overflow:auto;
+box-shadow:-5px 0 20px rgba(0,0,0,0.2);
 }
 
 .cart.active{ right:0; }
 
 .cart-item{
+display:flex;
+gap:10px;
 border-bottom:1px solid #ddd;
 padding:10px 0;
+}
+
+.cart-item img{
+width:60px;
+height:60px;
+object-fit:cover;
+border-radius:8px;
 }
 
 .qty-btn{
 background:#eee;
 border:none;
-padding:5px 10px;
-margin:3px;
+padding:4px 8px;
+margin:2px;
 border-radius:5px;
 cursor:pointer;
 }
 
 input,textarea{
 width:100%;
-padding:10px;
+padding:8px;
 margin:5px 0;
-border-radius:8px;
+border-radius:6px;
 border:1px solid #ddd;
 }
 </style>
@@ -162,28 +156,17 @@ function toggleCart(){
 document.getElementById("cart").classList.toggle("active");
 }
 
-/* FILTER FUNCTION */
 function filterProducts(category){
-let cards=document.querySelectorAll(".card");
-
-cards.forEach(card=>{
-if(category==="all" || card.dataset.category===category){
-card.style.display="block";
-}else{
-card.style.display="none";
-}
+document.querySelectorAll(".card").forEach(card=>{
+card.style.display=(category==="all"||card.dataset.category===category)?"block":"none";
 });
-
-/* active button */
-document.querySelectorAll(".filter-btn").forEach(btn=>btn.classList.remove("active"));
-event.target.classList.add("active");
 }
 
-/* CART FUNCTIONS */
-function addToCart(name,price){
+/* ADD TO CART (with image) */
+function addToCart(name,price,img){
 let item=cart.find(i=>i.name===name);
 if(item){item.qty++;}
-else{cart.push({name,price,qty:1});}
+else{cart.push({name,price,img,qty:1});}
 updateCart();
 }
 
@@ -210,12 +193,15 @@ qty+=item.qty;
 
 html+=`
 <div class="cart-item">
+<img src="${item.img}">
+<div>
 <b>${item.name}</b>
-<p>₹${item.price} x ${item.qty} = ₹${itemTotal}</p>
+<p>₹${item.price} x ${item.qty}</p>
 
 <button class="qty-btn" onclick="changeQty(${index},-1)">➖</button>
 <button class="qty-btn" onclick="changeQty(${index},1)">➕</button>
 <button class="qty-btn" onclick="removeItem(${index})">❌</button>
+</div>
 </div>
 `;
 });
@@ -231,34 +217,22 @@ document.getElementById("final").innerText=final;
 }
 
 function orderOnWhatsApp(){
-
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let address=document.getElementById("address").value;
 
-if(!name||!phone||!address){
-alert("Fill all details");
+if(!name||!phone||!address||cart.length===0){
+alert("Fill all details & add items");
 return;
 }
 
-if(cart.length===0){
-alert("Cart is empty");
-return;
-}
-
-let msg="🛍️ *New Order - Mauli Ethnic Wear*\\n------------------------\\n";
-
+let msg="🛍️ Order - Mauli Ethnic Wear\\n\\n";
 cart.forEach(i=>{
 msg+=`${i.name} x${i.qty} = ₹${i.price*i.qty}\\n`;
 });
 
-msg+=`\\nTotal: ₹${document.getElementById("total").innerText}`;
-msg+=`\\nDiscount: ₹${document.getElementById("discount").innerText}`;
 msg+=`\\nFinal: ₹${document.getElementById("final").innerText}`;
-
-msg+=`\\n\\nName: ${name}`;
-msg+=`\\nPhone: ${phone}`;
-msg+=`\\nAddress: ${address}`;
+msg+=`\\n\\n${name}, ${phone}, ${address}`;
 
 window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 }
@@ -275,11 +249,9 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 
 <div class="hero">Luxury Collection</div>
 
-<!-- FILTERS -->
 <div class="filters">
-<button class="filter-btn active" onclick="filterProducts('all')">All</button>
+<button class="filter-btn" onclick="filterProducts('all')">All</button>
 <button class="filter-btn" onclick="filterProducts('kurti')">Kurtis</button>
-<button class="filter-btn" onclick="filterProducts('dress')">Dresses</button>
 <button class="filter-btn" onclick="filterProducts('jeans')">Jeans</button>
 <button class="filter-btn" onclick="filterProducts('top')">Tops</button>
 </div>
@@ -290,17 +262,8 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800">
 <div class="card-content">
 <h3>Short Kurti</h3>
-<p class="price">₹299</p>
-<button class="btn" onclick="addToCart('Short Kurti',299)">Add to Cart</button>
-</div>
-</div>
-
-<div class="card" data-category="dress">
-<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800">
-<div class="card-content">
-<h3>Dress</h3>
-<p class="price">₹699</p>
-<button class="btn" onclick="addToCart('Dress',699)">Add to Cart</button>
+<p>₹299</p>
+<button class="btn" onclick="addToCart('Short Kurti',299,this.closest('.card').querySelector('img').src)">Add</button>
 </div>
 </div>
 
@@ -308,8 +271,8 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800">
 <div class="card-content">
 <h3>Jeans</h3>
-<p class="price">₹799</p>
-<button class="btn" onclick="addToCart('Jeans',799)">Add to Cart</button>
+<p>₹799</p>
+<button class="btn" onclick="addToCart('Jeans',799,this.closest('.card').querySelector('img').src)">Add</button>
 </div>
 </div>
 
@@ -317,14 +280,13 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 <img src="https://images.unsplash.com/photo-1520975922284-9c8b7b0f2d16?w=800">
 <div class="card-content">
 <h3>Top</h3>
-<p class="price">₹349</p>
-<button class="btn" onclick="addToCart('Top',349)">Add to Cart</button>
+<p>₹349</p>
+<button class="btn" onclick="addToCart('Top',349,this.closest('.card').querySelector('img').src)">Add</button>
 </div>
 </div>
 
 </div>
 
-<!-- CART -->
 <div id="cart" class="cart">
 <h2>Your Cart</h2>
 <div id="cart-items"></div>
