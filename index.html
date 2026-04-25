@@ -1,291 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mauli Ethnic Wear</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mauli Ethnic Wear</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-<style>
-:root{
---primary:#8B0000;
---bg:#fafafa;
-}
+    <style>
+        :root {
+            --primary-color: #8B0000; /* Deep Maroon */
+            --accent-color: #D4AF37; /* Royal Gold */
+            --bg-color: #fbfbfb;
+            --text-color: #333;
+        }
 
-body{
-margin:0;
-font-family:Poppins;
-background:var(--bg);
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
 
-header{
-background:white;
-padding:20px;
-display:flex;
-justify-content:space-between;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
-}
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #5a0000);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
-.logo{
-font-family:'Playfair Display';
-color:var(--primary);
-}
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
 
-.cart-btn{
-background:var(--primary);
-color:white;
-padding:10px 20px;
-border-radius:25px;
-cursor:pointer;
-}
+        header p {
+            font-weight: 300;
+            color: #ffdcb5;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
 
-.hero{
-height:50vh;
-background:url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600') center/cover;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-font-size:35px;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:20px;
-}
+        /* Form Styling */
+        .form-section {
+            background: white;
+            max-width: 600px;
+            margin: -30px auto 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
 
-.card{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
-}
+        .form-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 0;
+        }
 
-.card img{
-width:100%;
-height:280px;
-object-fit:cover;
-}
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
 
-.card-content{
-padding:10px;
-text-align:center;
-}
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
 
-.btn{
-background:var(--primary);
-color:white;
-border:none;
-padding:10px;
-width:100%;
-border-radius:6px;
-cursor:pointer;
-}
+        /* Products Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
 
-/* CART */
-.cart{
-position:fixed;
-right:-350px;
-top:0;
-width:320px;
-height:100%;
-background:white;
-padding:15px;
-transition:0.3s;
-overflow:auto;
-box-shadow:-5px 0 20px rgba(0,0,0,0.2);
-}
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
 
-.cart.active{ right:0; }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
 
-.cart-item{
-display:flex;
-gap:10px;
-border-bottom:1px solid #ddd;
-padding:10px 0;
-}
+        .card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
 
-.cart-item img{
-width:60px;
-height:60px;
-object-fit:cover;
-border-radius:8px;
-}
+        .card-content {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+        }
 
-.qty-btn{
-background:#eee;
-border:none;
-padding:4px 8px;
-margin:2px;
-border-radius:5px;
-cursor:pointer;
-}
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
 
-input,textarea{
-width:100%;
-padding:8px;
-margin:5px 0;
-border-radius:6px;
-border:1px solid #ddd;
-}
-</style>
+        .card p.price {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 20px;
+        }
 
-<script>
-let cart=[];
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
-}
+        button {
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: background 0.3s, transform 0.1s;
+            width: 100%;
+        }
 
-function addToCart(name,price,img){
-let item=cart.find(i=>i.name===name);
-if(item){item.qty++;}
-else{cart.push({name,price,img,qty:1});}
-updateCart();
-}
+        button:active {
+            transform: scale(0.98);
+        }
 
-function changeQty(index,change){
-cart[index].qty+=change;
-if(cart[index].qty<=0){cart.splice(index,1);}
-updateCart();
-}
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
 
-function removeItem(index){
-cart.splice(index,1);
-updateCart();
-}
+        .btn-whatsapp:hover {
+            background: #1ebe5d;
+        }
 
-function updateCart(){
-let html="";
-let total=0;
-let qty=0;
+        .btn-upi {
+            background: var(--accent-color);
+            color: #000;
+        }
 
-cart.forEach((item,index)=>{
-let itemTotal=item.price*item.qty;
-total+=itemTotal;
-qty+=item.qty;
+        .btn-upi:hover {
+            background: #bfa02b;
+        }
 
-html+=`
-<div class="cart-item">
-<img src="${item.img}">
-<div>
-<b>${item.name}</b>
-<p>₹${item.price} x ${item.qty}</p>
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            font-size: 28px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
 
-<button class="qty-btn" onclick="changeQty(${index},-1)">➖</button>
-<button class="qty-btn" onclick="changeQty(${index},1)">➕</button>
-<button class="qty-btn" onclick="removeItem(${index})">❌</button>
-</div>
-</div>
-`;
-});
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+    </style>
 
-let free=Math.floor(qty/4);
-let discount=free>0 ? free*Math.min(...cart.map(i=>i.price)) : 0;
-let final=total-discount;
+    <script>
+        // Store your exact WhatsApp Number and UPI ID here
+        const SHOP_WHATSAPP = "919220102074"; 
+        const UPI_ID = "yadavatharva03@oksbi"; // <--- CHANGE THIS TO YOUR ACTUAL UPI ID
+        const SHOP_NAME = "Mauli Ethnic Wear";
 
-document.getElementById("cart-items").innerHTML=html;
-document.getElementById("total").innerText=total;
-document.getElementById("discount").innerText=discount;
-document.getElementById("final").innerText=final;
-}
+        function validateForm() {
+            let name = document.getElementById("name").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let size = document.getElementById("size").value;
+            let address = document.getElementById("address").value.trim();
 
-/* WHATSAPP ORDER FORMAT */
-<script>
-function orderOnWhatsApp(){
+            if (!name || !phone || !size || !address) {
+                alert("Please fill in your Name, Phone, Size, and Address before ordering.");
+                return null;
+            }
 
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let address=document.getElementById("address").value;
+            return { name, phone, size, address };
+        }
 
-if(!name||!phone||!address||cart.length===0){
-alert("Fill all details & add items");
-return;
-}
+        function orderOnWhatsApp(product, price) {
+            const userDetails = validateForm();
+            if (!userDetails) return;
 
-let msg="🛍️ *New Order - Mauli Ethnic Wear*\n";
-msg+="--------------------------------\n";
+            let message = 
+`🛍️ *New Order - ${SHOP_NAME}*
+--------------------------------
+👗 Product: ${product}
+💰 Price: ₹${price}
+📏 Size: ${userDetails.size}
 
-cart.forEach(i=>{
-msg+=`👗 Product: ${i.name}\n`;
-msg+=`💰 Price: ₹${i.price}\n`;
-msg+=`📦 Qty: ${i.qty}\n`;
-msg+="-------------------------------\n";
-});
+👤 *Customer Details:*
+Name: ${userDetails.name}
+Phone: ${userDetails.phone}
+Address: ${userDetails.address}`;
 
-msg+=`💵 *Total:* ₹${document.getElementById("total").innerText}\n`;
-//msg+=`🎁 *Discount:* ₹${document.getElementById("discount").innerText}\n`;
-//msg+=`💳 *Final Amount:* ₹${document.getElementById("final").innerText}\n\n`;
+            let url = "https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(message);
+            window.open(url, "_blank");
+        }
 
-msg+="👤 *Customer Details:*\n";
-msg+=`Name: ${name}\n`;
-msg+=`Phone: ${phone}\n`;
-msg+=`Address: ${address}`;
+        function payViaUPI(product, price) {
+            const userDetails = validateForm();
+            if (!userDetails) return;
 
-window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
-}
-</script>
-</script>
+            // Generate UPI Deep Link (Works on mobile devices with GPay, PhonePe, Paytm, etc.)
+            let upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(SHOP_NAME)}&am=${price}&cu=INR&tn=${encodeURIComponent("Payment for " + product)}`;
+            
+            // Attempt to open the UPI app
+            window.location.href = upiLink;
 
+            // Optional: Prompt user to send screenshot on WhatsApp after clicking pay
+            setTimeout(() => {
+                if(confirm("After completing your payment, please click OK to send us a screenshot on WhatsApp to confirm your order.")) {
+                    let message = `Hello ${SHOP_NAME}, I just paid ₹${price} via UPI for the ${product} (Size: ${userDetails.size}). My name is ${userDetails.name}. Here is my payment screenshot:`;
+                    let waUrl = "https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(message);
+                    window.open(waUrl, "_blank");
+                }
+            }, 2000);
+        }
+    </script>
 </head>
-
 <body>
 
 <header>
-<div class="logo">Mauli Ethnic Wear</div>
-<div class="cart-btn" onclick="toggleCart()">Cart 🛒</div>
+    <h1>Mauli Ethnic Wear</h1>
+    <p>Traditional. Elegant. Authentic.</p>
 </header>
 
-<div class="hero">Luxury Collection</div>
+<div class="container">
+    <div class="form-section">
+        <h2>Delivery Details</h2>
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number (e.g., +91...)" required>
+        
+        <select id="size" required>
+            <option value="">Select Your Size</option>
+            <option value="XS">XS (Extra Small)</option>
+            <option value="S">S (Small)</option>
+            <option value="M">M (Medium)</option>
+            <option value="L">L (Large)</option>
+            <option value="XL">XL (Extra Large)</option>
+            <option value="XXL">XXL (Double XL)</option>
+        </select>
 
-<div class="products">
+        <textarea id="address" rows="3" placeholder="Full Delivery Address" required></textarea>
+    </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800">
-<div class="card-content">
-<h3>Short Kurti</h3>
-<p>₹299</p>
-<button class="btn" onclick="addToCart('Short Kurti',299,this.closest('.card').querySelector('img').src)">Add</button>
+    <div class="products">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1617251137884-f135eccf6942?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Khadi Cotton Kurti Set">
+            <div class="card-content">
+                <h3>Khadi Cotton Kurti Set</h3>
+                <p class="price">₹1,299</p>
+                <div class="btn-group">
+                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Khadi Cotton Kurti Set', '1299')">Order on WhatsApp</button>
+                    <button class="btn-upi" onclick="payViaUPI('Khadi Cotton Kurti Set', '1299')">Pay Now via UPI</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Floral Print Anarkali">
+            <div class="card-content">
+                <h3>Floral Print Anarkali</h3>
+                <p class="price">₹2,499</p>
+                <div class="btn-group">
+                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Floral Print Anarkali', '2499')">Order on WhatsApp</button>
+                    <button class="btn-upi" onclick="payViaUPI('Floral Print Anarkali', '2499')">Pay Now via UPI</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Traditional Silk Saree">
+            <div class="card-content">
+                <h3>Traditional Silk Saree</h3>
+                <p class="price">₹3,199</p>
+                <div class="btn-group">
+                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Traditional Silk Saree', '3199')">Order on WhatsApp</button>
+                    <button class="btn-upi" onclick="payViaUPI('Traditional Silk Saree', '3199')">Pay Now via UPI</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800">
-<div class="card-content">
-<h3>Floral Dress</h3>
-<p>₹699</p>
-<button class="btn" onclick="addToCart('Floral Dress',699,this.closest('.card').querySelector('img').src)">Add</button>
-</div>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800">
-<div class="card-content">
-<h3>Jeans</h3>
-<p>₹799</p>
-<button class="btn" onclick="addToCart('Jeans',799,this.closest('.card').querySelector('img').src)">Add</button>
-</div>
-</div>
-
-</div>
-
-<div id="cart" class="cart">
-<h2>Your Cart</h2>
-<div id="cart-items"></div>
-
-<p>Total: ₹<span id="total">0</span></p>
-//<p>Discount: ₹<span id="discount">0</span></p>
-<h3>Final: ₹<span id="final">0</span></h3>
-
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
-<textarea id="address" placeholder="Address"></textarea>
-
-<button class="btn" onclick="orderOnWhatsApp()">Order on WhatsApp</button>
-</div>
+<a href="https://wa.me/919220102074" target="_blank" class="whatsapp-float">
+    💬
+</a>
 
 </body>
 </html>
