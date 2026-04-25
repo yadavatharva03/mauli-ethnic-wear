@@ -1,331 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mauli Ethnic Wear</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mauli Ethnic Wear</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #8B0000; /* Deep Maroon */
-            --accent-color: #D4AF37; /* Royal Gold */
-            --bg-color: #fbfbfb;
-            --text-color: #333;
-        }
+<style>
+:root{
+--primary:#8B0000;
+--gold:#D4AF37;
+--bg:#fafafa;
+}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: var(--bg-color);
-            color: var(--text-color);
-        }
+body{
+margin:0;
+font-family:Poppins;
+background:var(--bg);
+}
 
-        header {
-            background: linear-gradient(135deg, var(--primary-color), #5a0000);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+/* HEADER */
+header{
+background:white;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
 
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
-        }
+.logo{
+font-family:'Playfair Display';
+font-size:24px;
+color:var(--primary);
+}
 
-        header p {
-            font-weight: 300;
-            color: #ffdcb5;
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
+.cart-btn{
+background:var(--primary);
+color:white;
+padding:10px 20px;
+border-radius:25px;
+cursor:pointer;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+/* HERO */
+.hero{
+height:60vh;
+background:url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:40px;
+}
 
-        /* Form Styling */
-        .form-section {
-            background: white;
-            max-width: 600px;
-            margin: -30px auto 40px auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            position: relative;
-        }
+/* FILTER BUTTONS */
+.filters{
+text-align:center;
+padding:20px;
+}
 
-        .form-section h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-color);
-            text-align: center;
-            margin-top: 0;
-        }
+.filter-btn{
+padding:10px 20px;
+margin:5px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:#eee;
+}
 
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-family: 'Poppins', sans-serif;
-            box-sizing: border-box;
-            transition: border 0.3s;
-        }
+.filter-btn.active{
+background:var(--primary);
+color:white;
+}
 
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--accent-color);
-            outline: none;
-        }
+/* PRODUCTS */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+padding:40px;
+}
 
-        /* Products Grid */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 20px 0;
-        }
+.card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
 
-        .card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+.card img{
+width:100%;
+height:300px;
+object-fit:cover;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
+.card-content{
+padding:15px;
+text-align:center;
+}
 
-        .card img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-        }
+.price{
+color:var(--primary);
+font-weight:bold;
+}
 
-        .card-content {
-            padding: 20px;
-            text-align: center;
-            flex-grow: 1;
-        }
+.btn{
+background:var(--primary);
+color:white;
+border:none;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+cursor:pointer;
+width:100%;
+}
 
-        .card h3 {
-            font-family: 'Playfair Display', serif;
-            margin: 0 0 10px 0;
-            color: var(--primary-color);
-        }
+/* CART */
+.cart{
+position:fixed;
+right:-350px;
+top:0;
+width:320px;
+height:100%;
+background:white;
+box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+padding:20px;
+transition:0.4s;
+overflow:auto;
+}
 
-        .card p.price {
-            font-size: 1.2em;
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 20px;
-        }
+.cart.active{ right:0; }
 
-        /* Buttons */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.cart-item{
+border-bottom:1px solid #ddd;
+padding:10px 0;
+}
 
-        button {
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            transition: background 0.3s, transform 0.1s;
-            width: 100%;
-        }
+.qty-btn{
+background:#eee;
+border:none;
+padding:5px 10px;
+margin:3px;
+border-radius:5px;
+cursor:pointer;
+}
 
-        button:active {
-            transform: scale(0.98);
-        }
+input,textarea{
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ddd;
+}
+</style>
 
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-        }
+<script>
+let cart=[];
 
-        .btn-whatsapp:hover {
-            background: #1ebe5d;
-        }
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
 
-        .btn-upi {
-            background: var(--accent-color);
-            color: #000;
-        }
+/* FILTER FUNCTION */
+function filterProducts(category){
+let cards=document.querySelectorAll(".card");
 
-        .btn-upi:hover {
-            background: #bfa02b;
-        }
+cards.forEach(card=>{
+if(category==="all" || card.dataset.category===category){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+});
 
-        /* Floating WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
-            color: white;
-            font-size: 28px;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
+/* active button */
+document.querySelectorAll(".filter-btn").forEach(btn=>btn.classList.remove("active"));
+event.target.classList.add("active");
+}
 
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-    </style>
+/* CART FUNCTIONS */
+function addToCart(name,price){
+let item=cart.find(i=>i.name===name);
+if(item){item.qty++;}
+else{cart.push({name,price,qty:1});}
+updateCart();
+}
 
-    <script>
-        // Store your exact WhatsApp Number and UPI ID here
-        const SHOP_WHATSAPP = "919220102074"; 
-        const UPI_ID = "yadavatharva03@oksbi"; // <--- CHANGE THIS TO YOUR ACTUAL UPI ID
-        const SHOP_NAME = "Mauli Ethnic Wear";
+function changeQty(index,change){
+cart[index].qty+=change;
+if(cart[index].qty<=0){cart.splice(index,1);}
+updateCart();
+}
 
-        function validateForm() {
-            let name = document.getElementById("name").value.trim();
-            let phone = document.getElementById("phone").value.trim();
-            let size = document.getElementById("size").value;
-            let address = document.getElementById("address").value.trim();
+function removeItem(index){
+cart.splice(index,1);
+updateCart();
+}
 
-            if (!name || !phone || !size || !address) {
-                alert("Please fill in your Name, Phone, Size, and Address before ordering.");
-                return null;
-            }
+function updateCart(){
+let html="";
+let total=0;
+let qty=0;
 
-            return { name, phone, size, address };
-        }
+cart.forEach((item,index)=>{
+let itemTotal=item.price*item.qty;
+total+=itemTotal;
+qty+=item.qty;
 
-        function orderOnWhatsApp(product, price) {
-            const userDetails = validateForm();
-            if (!userDetails) return;
+html+=`
+<div class="cart-item">
+<b>${item.name}</b>
+<p>₹${item.price} x ${item.qty} = ₹${itemTotal}</p>
 
-            let message = 
-`🛍️ *New Order - ${SHOP_NAME}*
---------------------------------
-👗 Product: ${product}
-💰 Price: ₹${price}
-📏 Size: ${userDetails.size}
+<button class="qty-btn" onclick="changeQty(${index},-1)">➖</button>
+<button class="qty-btn" onclick="changeQty(${index},1)">➕</button>
+<button class="qty-btn" onclick="removeItem(${index})">❌</button>
+</div>
+`;
+});
 
-👤 *Customer Details:*
-Name: ${userDetails.name}
-Phone: ${userDetails.phone}
-Address: ${userDetails.address}`;
+let free=Math.floor(qty/4);
+let discount=free>0 ? free*Math.min(...cart.map(i=>i.price)) : 0;
+let final=total-discount;
 
-            let url = "https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(message);
-            window.open(url, "_blank");
-        }
+document.getElementById("cart-items").innerHTML=html;
+document.getElementById("total").innerText=total;
+document.getElementById("discount").innerText=discount;
+document.getElementById("final").innerText=final;
+}
 
-        function payViaUPI(product, price) {
-            const userDetails = validateForm();
-            if (!userDetails) return;
+function orderOnWhatsApp(){
 
-            // Generate UPI Deep Link (Works on mobile devices with GPay, PhonePe, Paytm, etc.)
-            let upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(SHOP_NAME)}&am=${price}&cu=INR&tn=${encodeURIComponent("Payment for " + product)}`;
-            
-            // Attempt to open the UPI app
-            window.location.href = upiLink;
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let address=document.getElementById("address").value;
 
-            // Optional: Prompt user to send screenshot on WhatsApp after clicking pay
-            setTimeout(() => {
-                if(confirm("After completing your payment, please click OK to send us a screenshot on WhatsApp to confirm your order.")) {
-                    let message = `Hello ${SHOP_NAME}, I just paid ₹${price} via UPI for the ${product} (Size: ${userDetails.size}). My name is ${userDetails.name}. Here is my payment screenshot:`;
-                    let waUrl = "https://wa.me/" + SHOP_WHATSAPP + "?text=" + encodeURIComponent(message);
-                    window.open(waUrl, "_blank");
-                }
-            }, 2000);
-        }
-    </script>
+if(!name||!phone||!address){
+alert("Fill all details");
+return;
+}
+
+if(cart.length===0){
+alert("Cart is empty");
+return;
+}
+
+let msg="🛍️ *New Order - Mauli Ethnic Wear*\\n------------------------\\n";
+
+cart.forEach(i=>{
+msg+=`${i.name} x${i.qty} = ₹${i.price*i.qty}\\n`;
+});
+
+msg+=`\\nTotal: ₹${document.getElementById("total").innerText}`;
+msg+=`\\nDiscount: ₹${document.getElementById("discount").innerText}`;
+msg+=`\\nFinal: ₹${document.getElementById("final").innerText}`;
+
+msg+=`\\n\\nName: ${name}`;
+msg+=`\\nPhone: ${phone}`;
+msg+=`\\nAddress: ${address}`;
+
+window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
+}
+</script>
+
 </head>
+
 <body>
 
 <header>
-    <h1>Mauli Ethnic Wear</h1>
-    <p>Traditional. Elegant. Authentic.</p>
+<div class="logo">Mauli Ethnic Wear</div>
+<div class="cart-btn" onclick="toggleCart()">Cart 🛒</div>
 </header>
 
-<div class="container">
-    <div class="form-section">
-        <h2>Delivery Details</h2>
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="tel" id="phone" placeholder="Phone Number (e.g., +91...)" required>
-        
-        <select id="size" required>
-            <option value="">Select Your Size</option>
-            <option value="XS">XS (Extra Small)</option>
-            <option value="S">S (Small)</option>
-            <option value="M">M (Medium)</option>
-            <option value="L">L (Large)</option>
-            <option value="XL">XL (Extra Large)</option>
-            <option value="XXL">XXL (Double XL)</option>
-        </select>
+<div class="hero">Luxury Collection</div>
 
-        <textarea id="address" rows="3" placeholder="Full Delivery Address" required></textarea>
-    </div>
-
-    <div class="products">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1617251137884-f135eccf6942?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Khadi Cotton Kurti Set">
-            <div class="card-content">
-                <h3>Khadi Cotton Kurti Set</h3>
-                <p class="price">₹1,299</p>
-                <div class="btn-group">
-                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Khadi Cotton Kurti Set', '1299')">Order on WhatsApp</button>
-                    <button class="btn-upi" onclick="payViaUPI('Khadi Cotton Kurti Set', '1299')">Pay Now via UPI</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Floral Print Anarkali">
-            <div class="card-content">
-                <h3>Floral Print Anarkali</h3>
-                <p class="price">₹2,499</p>
-                <div class="btn-group">
-                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Floral Print Anarkali', '2499')">Order on WhatsApp</button>
-                    <button class="btn-upi" onclick="payViaUPI('Floral Print Anarkali', '2499')">Pay Now via UPI</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Traditional Silk Saree">
-            <div class="card-content">
-                <h3>Traditional Silk Saree</h3>
-                <p class="price">₹3,199</p>
-                <div class="btn-group">
-                    <button class="btn-whatsapp" onclick="orderOnWhatsApp('Traditional Silk Saree', '3199')">Order on WhatsApp</button>
-                    <button class="btn-upi" onclick="payViaUPI('Traditional Silk Saree', '3199')">Pay Now via UPI</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- FILTERS -->
+<div class="filters">
+<button class="filter-btn active" onclick="filterProducts('all')">All</button>
+<button class="filter-btn" onclick="filterProducts('kurti')">Kurtis</button>
+<button class="filter-btn" onclick="filterProducts('dress')">Dresses</button>
+<button class="filter-btn" onclick="filterProducts('jeans')">Jeans</button>
+<button class="filter-btn" onclick="filterProducts('top')">Tops</button>
 </div>
 
-<a href="https://wa.me/919220102074" target="_blank" class="whatsapp-float">
-    💬
-</a>
+<div class="products">
+
+<div class="card" data-category="kurti">
+<img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800">
+<div class="card-content">
+<h3>Short Kurti</h3>
+<p class="price">₹299</p>
+<button class="btn" onclick="addToCart('Short Kurti',299)">Add to Cart</button>
+</div>
+</div>
+
+<div class="card" data-category="dress">
+<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800">
+<div class="card-content">
+<h3>Dress</h3>
+<p class="price">₹699</p>
+<button class="btn" onclick="addToCart('Dress',699)">Add to Cart</button>
+</div>
+</div>
+
+<div class="card" data-category="jeans">
+<img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800">
+<div class="card-content">
+<h3>Jeans</h3>
+<p class="price">₹799</p>
+<button class="btn" onclick="addToCart('Jeans',799)">Add to Cart</button>
+</div>
+</div>
+
+<div class="card" data-category="top">
+<img src="https://images.unsplash.com/photo-1520975922284-9c8b7b0f2d16?w=800">
+<div class="card-content">
+<h3>Top</h3>
+<p class="price">₹349</p>
+<button class="btn" onclick="addToCart('Top',349)">Add to Cart</button>
+</div>
+</div>
+
+</div>
+
+<!-- CART -->
+<div id="cart" class="cart">
+<h2>Your Cart</h2>
+<div id="cart-items"></div>
+
+<p>Total: ₹<span id="total">0</span></p>
+<p>Discount: ₹<span id="discount">0</span></p>
+<h3>Final: ₹<span id="final">0</span></h3>
+
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<textarea id="address" placeholder="Address"></textarea>
+
+<button class="btn" onclick="orderOnWhatsApp()">Order on WhatsApp</button>
+</div>
 
 </body>
 </html>
