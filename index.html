@@ -217,8 +217,8 @@ msg+="-------------------------------\n";
 });
 
 msg+=`💵 *Total:* ₹${document.getElementById("total").innerText}\n`;
-msg+=`🎁 *Discount:* ₹${document.getElementById("discount").innerText}\n`;
-msg+=`💳 *Final Amount:* ₹${document.getElementById("final").innerText}\n\n`;
+//msg+=`🎁 *Discount:* ₹${document.getElementById("discount").innerText}\n`;
+//msg+=`💳 *Final Amount:* ₹${document.getElementById("final").innerText}\n\n`;
 
 msg+="👤 *Customer Details:*\n";
 msg+=`Name: ${name}\n`;
@@ -277,7 +277,7 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 <div id="cart-items"></div>
 
 <p>Total: ₹<span id="total">0</span></p>
-<p>Discount: ₹<span id="discount">0</span></p>
+//<p>Discount: ₹<span id="discount">0</span></p>
 <h3>Final: ₹<span id="final">0</span></h3>
 
 <input id="name" placeholder="Name">
