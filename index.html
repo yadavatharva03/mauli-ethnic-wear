@@ -50,22 +50,6 @@ color:white;
 font-size:35px;
 }
 
-.filters{text-align:center;padding:15px;}
-
-.filter-btn{
-padding:8px 15px;
-margin:5px;
-border:none;
-border-radius:20px;
-background:#eee;
-cursor:pointer;
-}
-
-.filter-btn.active{
-background:var(--primary);
-color:white;
-}
-
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -156,13 +140,6 @@ function toggleCart(){
 document.getElementById("cart").classList.toggle("active");
 }
 
-function filterProducts(category){
-document.querySelectorAll(".card").forEach(card=>{
-card.style.display=(category==="all"||card.dataset.category===category)?"block":"none";
-});
-}
-
-/* ADD TO CART (with image) */
 function addToCart(name,price,img){
 let item=cart.find(i=>i.name===name);
 if(item){item.qty++;}
@@ -216,7 +193,9 @@ document.getElementById("discount").innerText=discount;
 document.getElementById("final").innerText=final;
 }
 
+/* WHATSAPP ORDER FORMAT */
 function orderOnWhatsApp(){
+
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let address=document.getElementById("address").value;
@@ -226,13 +205,24 @@ alert("Fill all details & add items");
 return;
 }
 
-let msg="🛍️ Order - Mauli Ethnic Wear\\n\\n";
+let msg="🛍️ *New Order - Mauli Ethnic Wear*\\n";
+msg+="--------------------------------\\n";
+
 cart.forEach(i=>{
-msg+=`${i.name} x${i.qty} = ₹${i.price*i.qty}\\n`;
+msg+=`👗 Product: ${i.name}\\n`;
+msg+=`💰 Price: ₹${i.price}\\n`;
+msg+=`📦 Qty: ${i.qty}\\n`;
+msg+="-------------------------------\\n";
 });
 
-msg+=`\\nFinal: ₹${document.getElementById("final").innerText}`;
-msg+=`\\n\\n${name}, ${phone}, ${address}`;
+msg+=`💵 *Total:* ₹${document.getElementById("total").innerText}\\n`;
+msg+=`🎁 *Discount:* ₹${document.getElementById("discount").innerText}\\n`;
+msg+=`💳 *Final Amount:* ₹${document.getElementById("final").innerText}\\n\\n`;
+
+msg+="👤 *Customer Details:*\\n";
+msg+=`Name: ${name}\\n`;
+msg+=`Phone: ${phone}\\n`;
+msg+=`Address: ${address}`;
 
 window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 }
@@ -249,16 +239,9 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 
 <div class="hero">Luxury Collection</div>
 
-<div class="filters">
-<button class="filter-btn" onclick="filterProducts('all')">All</button>
-<button class="filter-btn" onclick="filterProducts('kurti')">Kurtis</button>
-<button class="filter-btn" onclick="filterProducts('jeans')">Jeans</button>
-<button class="filter-btn" onclick="filterProducts('top')">Tops</button>
-</div>
-
 <div class="products">
 
-<div class="card" data-category="kurti">
+<div class="card">
 <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800">
 <div class="card-content">
 <h3>Short Kurti</h3>
@@ -267,21 +250,21 @@ window.open("https://wa.me/919220102074?text="+encodeURIComponent(msg));
 </div>
 </div>
 
-<div class="card" data-category="jeans">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800">
+<div class="card-content">
+<h3>Floral Dress</h3>
+<p>₹699</p>
+<button class="btn" onclick="addToCart('Floral Dress',699,this.closest('.card').querySelector('img').src)">Add</button>
+</div>
+</div>
+
+<div class="card">
 <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800">
 <div class="card-content">
 <h3>Jeans</h3>
 <p>₹799</p>
 <button class="btn" onclick="addToCart('Jeans',799,this.closest('.card').querySelector('img').src)">Add</button>
-</div>
-</div>
-
-<div class="card" data-category="top">
-<img src="https://images.unsplash.com/photo-1520975922284-9c8b7b0f2d16?w=800">
-<div class="card-content">
-<h3>Top</h3>
-<p>₹349</p>
-<button class="btn" onclick="addToCart('Top',349,this.closest('.card').querySelector('img').src)">Add</button>
 </div>
 </div>
 
